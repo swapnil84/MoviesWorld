@@ -1,0 +1,39 @@
+{
+  "name": "Popular Movies",
+  "version": "0.0.1",
+  "description": "Popular Movies",
+  "authors": [
+    "Swapnil"
+  ],
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components"
+  ],
+  "dependencies": {
+    "bootstrap": "~3.3.4",
+    "angular": "1.5.6",
+    "highcharts": "~4.2.3",
+    "angular-i18n": "1.4.7",
+    "ng-currency": "0.8.9",
+    "jquery": "~2.1.4",
+    "angular-route": "1.4.1",
+    "angular-sanitize": "1.4.1",
+    "angular-animate": "1.4.1",
+    "angular-ui-router": "0.2.15",
+    "angular-bootstrap": "0.14.3",
+    "es5-shim": "4.1.7",
+    "angular-file-upload": "1.1.5",
+    "angular-ui-grid": "3.0.0-rc.22",
+    "angular-prompt": "1.1.1",
+    "angular-cookies": "1.4.3",
+    "angular-filter": "0.5.7",
+    "angular-mocks": "^1.5.0",
+    "webshim": "~1.15.10",
+    "ui-breadcrumb": "^0.0.4"
+  },
+  "resolutions": {
+    "angular": "1.5.6",
+    "angular-bootstrap": "0.14.3"
+  }
+}

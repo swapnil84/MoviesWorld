@@ -1,0 +1,42 @@
+<div class="beer-list">
+	<ul class="product-list row moviesList">
+		<li data-ng-repeat="movie in vm.movies" class="moviesList col-md-12">
+            <div class="row">
+                <div class="moviePoster col-md-1 nopadding">
+                    <img class="img-responsive" src="{{vm.imgpath}}{{movie.poster_path}}">
+                </div>
+                <div class="info col-md-10">
+                    <p class="title">
+                        <a id="movie_{{movie.id}}" class="title" ui-sref="details({Id:{{movie.id}}})" title="{{movie.title}}" alt="{{movie.title}}">{{movie.title}}</a>
+                    </p>
+                    <p class="overview">{{movie.overview}}</p>
+                </div>		
+            </div>
+            
+		</li>
+	</ul>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
