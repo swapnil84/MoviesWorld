@@ -2,57 +2,118 @@
     'use strict';
     angular
 		.module('app.services')
-		.service('MovieService', MovieService);
+		.service('movieService', movieService);
 
-    function MovieService($http, $q, Base_Url, Api_Key, $rootScope) {
+    function movieService($http, $q, $rootScope, globalVar) {
+        var popularMovies = null;
+        var upcomingMovies = null;
         var dataLoaded = false;
+        //var movieDetails = null;
 
-        this.getMovies = function () {
-            if (!dataLoaded) {
-                return $http.get(Base_Url + "/popular?" + Api_Key)
-                .then(function (data, status, headers, config) {
-                    return data.data;
+        this.getPopularMovies = function(){
+            var deferred = $q.defer();
+            if (popularMovies !== null) {
+                deferred.resolve(popularMovies);
+                console.log("from cache");
+            } else {
+                $http.get(globalVar.baseUrl + "/popular?" + globalVar.apiKey)
+                    .then(function(response) {
+                        popularMovies = response;
+                        deferred.resolve(popularMovies);
+                    console.log("from server");
+                    }, function (response) {
+                    deferred.reject(response);
                 });
             }
-            else {
-                return $q.when(data.data);
-            }
-        };        
+            return deferred.promise;
+        }
 
         this.getUpcomingMovies = function () {
-            if (!dataLoaded) {
-                return $http.get(Base_Url + "/upcoming?" + Api_Key)
-                .then(function (data, status, headers, config) {
-                    return data.data;
-                });
+            var deferred = $q.defer();
+            if (upcomingMovies !== null) {
+                deferred.resolve(upcomingMovies);
+                console.log("from cache");
+            } else {
+                $http.get(globalVar.baseUrl + "/upcoming?" + globalVar.apiKey)
+                    .then(function (response) {
+                        upcomingMovies = response;
+                        deferred.resolve(upcomingMovies);
+                        console.log("from server");
+                    }, function (response) {
+                        deferred.reject(response);
+                    });
             }
-            else {
-                return $q.when(data.data);
-            }
-        };
+            return deferred.promise;
+        }
 
         this.getMovieDetails = function (id) {
             if (!dataLoaded) {
-                return $http.get(Base_Url + "/" + id + "?" + Api_Key)
-                .then(function (data, status, headers, config) {
-                    return data.data;
+                return $http.get(globalVar.baseUrl + "/" + id + "?" + globalVar.apiKey)
+                .then(function (data) {
+                    return data;
                 });
             }
             else {
-                return $q.when(data.data);
+                return $q.when(data);
             }
-        };
-
-        this.getCurrentScope = function () {
-            
-           return $rootScope.state
-               
         }
+        //return {
+        //    getPopularMovies: function() {
+        //        if (!promise) {
+        //            promise = $http.get(baseUrl + "/popular?" + apiKey);
+        //            promise.then(function(response) {
+        //                items = response;
+        //            }, function(response) {
+        //                return $q.reject(response);
+        //            });
+        //            return promise;
+        //        } else {
+        //            return $q.when(items);
+        //        }
+        //    },
+            
+        //    getUpcomingMovies: function () {
+        //        if (!upcmiongpromise) {
+        //            upcmiongpromise = $http.get(baseUrl + "/upcoming?" + apiKey);
+        //            upcmiongpromise.then(function (response) {
+        //                upcoming = response;
+        //            }, function(response) {
+        //                return $q.reject(response);
+        //            });
+        //            return upcmiongpromise;
+        //        } else {
+        //            return $q.when(upcoming);
+        //        }
+        //    },
 
-        //this.getPopularMovies = function () {
-        //    return data.data;
-        //};
+        //    //getUpcomingMovies: function () {
+        //    //    if (!dataLoaded) {
+        //    //        return $http.get(baseUrl + "/upcoming?" + apiKey)
+        //    //        .then(function (data) {
+        //    //            return data;
+        //    //        });
+        //    //    }
+        //    //    else {
+        //    //        return $q.when(data.data);
+        //    //    }
+        //    //},
+
+        //    getMovieDetails: function (id) {
+        //        if (!dataLoaded) {
+        //            return $http.get(baseUrl + "/" + id + "?" + apiKey)
+        //            .then(function (data) {
+        //                return data.data;
+        //            });
+        //        }
+        //        else {
+        //            return $q.when(data.data);
+        //        }
+        //    },
+
+        //    getCurrentScope: function() {
+        //        return $rootScope.state;
+        //    }
+        //}
     };
-
 
 })();
