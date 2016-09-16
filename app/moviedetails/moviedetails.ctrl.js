@@ -2,10 +2,11 @@
     'use strict';
     angular
 		.module('app.details')
-		.controller('MovieDetailsCtrl', MovieDetailsCtrl);
+		.controller('movieDetailsCtrl', movieDetailsCtrl);
 
-    function MovieDetailsCtrl($scope, MovieService, $rootScope, $stateParams) {
+    function movieDetailsCtrl($scope, movieService, $rootScope, $stateParams) {
         var vm = this;
+        vm.imgpath = 'http://image.tmdb.org/t/p/w500';
         var movieid = $stateParams.Id;
         vm.loading = true;
         vm.moviedetails = [];
@@ -14,23 +15,12 @@
         ////////////   
 
         function activate() {
-            return MovieService.getMovieDetails(movieid).then(function (data) {
-                vm.moviedetails = data;
+            return movieService.getMovieDetails(movieid).then(function (data) {
+                vm.moviedetails = data.data;
                 vm.loading = false;
-                vm.imgpath = 'http://image.tmdb.org/t/p/w500';
                 return vm.moviedetails;
             });
         }
-
-        //function getDetails(id) {
-        //    var result = [];
-        //    for (var i in vm.movies)
-        //        if (vm.movies[i].id == id) {
-        //            result.push(vm.movies[i])
-        //            break
-        //        }
-        //    return result
-        //}
     }
 
 })();
